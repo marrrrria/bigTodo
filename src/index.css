@@ -7,7 +7,111 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+ul,p,h1,h2,h3{
+  padding: 0;
+  margin: 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.wrapper {
+  width: 600px;
+  margin: 0 auto;
+  padding: 60px 0
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  border: 1px solid black;
+  padding: 10px ;
+}
+
+.task:hover {
+  cursor: grab;
+}
+
+.task span {
+  display: flex;
+  align-items: center;
+}
+
+.task input {
+  margin: 0 10px 0 0;
+  width: 20px;
+  height: 20px;
+}
+
+.task input:hover {
+  cursor: pointer;
+}
+
+.delete {
+  border-radius: 50%;
+
+  color: white;
+  font-size: 20px;
+  background-color: rgba(255, 0, 0, 0.479);
+}
+
+.delete:hover {
+  cursor: pointer;
+  background-color: red;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.add-task {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  margin-top: 50px;
+}
+
+.add-task input {
+  border-radius: 7px;
+  font-size: 20px;
+}
+
+.add-task button {
+  border-radius: 7px;
+  font-size: 20px;
+  padding: 5px 10px;
+  background-color: rgb(139, 241, 161);
+}
+
+.add-task button:hover {
+  cursor: pointer;
+  background-color: rgb(66, 226, 101);
+}
+
+.filter {
+  text-align: right;
+}
+
+.filter button {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(199, 242, 253, 0.377);
+  margin-left: 10px;
+  margin-bottom: 40px;
+  /* color: rgb(0, 0, 0); */
+  font-size: 20px;
+}
+
+.filter button:hover {
+  cursor: pointer;
+  background-color: rgb(199, 242, 253);
+}
+
+.hidden {
+  display: none;
 }
