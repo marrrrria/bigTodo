@@ -1,4 +1,5 @@
 import React from "react";
+import ProgressBar from "./ProgressBar";
 
 function getYearDays(year) {
   let days = 365;
@@ -49,10 +50,35 @@ function BalanceWidget() {
   let percentsOfYear = getPercentOfYear(date, yearDays);
   let percentsOfMonth = Math.floor(dayOfMonth*100/monthDays);
   let percentsOfWeek = Math.floor(weekDay*100/7)
-// 24, gethours 
+  let percentsOfDay = Math.floor(time * 100 / 24)
+
+  let widgetData = [
+    {
+      bgcolor: "black",
+      completed: percentsOfYear,
+    },
+    {
+      bgcolor: "black",
+      completed: percentsOfMonth,
+    },
+    {
+      bgcolor: "black",
+      completed: percentsOfWeek,
+    },
+    {
+      bgcolor: "black",
+      completed: percentsOfDay,
+    },
+  ];
+
+  return (
+    <div>
+      {widgetData.map((item, i) => <ProgressBar key={i} bgcolor={item.bgcolor} completed={item.completed}/>)}
+    </div>
+  )
 
 
-  // console.log(percentsOfWeek)
+  // console.log(percentsOfDay)
   // console.log(percentsOfYear)
   // console.log(weekDay)
   // console.log(dayOfMonth)
