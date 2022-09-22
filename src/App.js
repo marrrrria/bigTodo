@@ -3,6 +3,7 @@ import React from "react";
 import AddTask from "./components/AddTask";
 import Context from "./context";
 import Filter from "./components/Filter";
+import BalanceWidget from "./components/BalanceWidget"
 
 
 function App() {
@@ -181,6 +182,8 @@ function App() {
   return (
     <Context.Provider value={{dragStart, dragOver, dragLeave, dragEnd, dragDrop}}>
       <div className="wrapper">
+        <BalanceWidget/>
+
         <Filter filterAll={filterAll} filterActive={filterActive} filterDone={filterDone}/>
         
         {list.length ? <TaskList tasks={list} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
