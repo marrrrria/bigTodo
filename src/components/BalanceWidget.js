@@ -54,7 +54,7 @@ function BalanceWidget() {
 
   let widgetData = [
     {
-      bgcolor: "black",
+      bgcolor: "darkgreen",
       completed: percentsOfYear,
     },
     {

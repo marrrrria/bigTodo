@@ -3,11 +3,11 @@ import React from "react";
 function ProgressBar({bgcolor, completed}) {
 
   const containerStyles = {
-    height: 20,
+    height: '20px',
     width: '100%',
-    backgroundColor: "black",
-    borderRadius: 50,
-    margin: 50,
+    backgroundColor: "#e0e0de",
+    borderRadius: '50px',
+    margin: '50px',
   }
 
   const fillerStyles = {
@@ -20,14 +20,14 @@ function ProgressBar({bgcolor, completed}) {
 
   const labelStyles = {
     padding: 5,
-    color: "black",
+    color: "white",
     fontWeight: 'bold',
   }
 
   return (
-    <div styles={containerStyles}>
-      <div styles={fillerStyles}>
-        <span styles={labelStyles}>{`${completed}%`}</span>
+    <div style={containerStyles}>
+      <div style={fillerStyles}>
+        <span style={labelStyles}>{`${completed}%`}</span>
       </div>
     </div>
   )
