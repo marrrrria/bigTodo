@@ -16,7 +16,7 @@ Click on the button on the right of your task
 
 ### 3. Move Tasks
 
-g
+Drag and Drop your tasks
 
 ### 4. Notice Done Task
 
