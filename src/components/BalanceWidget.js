@@ -13,31 +13,51 @@ function getYearDays(year) {
   return days;
 }
 
+function getMonthDays(month, yearDays) {
+  switch(month) {
+    case 2: {
+      if (yearDays === 365){
+        return 28; 
+      } else { return 29 }
+    }
+    case 1,3,5,7,8,10,12: {
+      return 31;
+    }
+    default: {
+      return 30; 
+    }
+  }
+}
+
+function getPercentOfYear(date, yearDays) {
+  let nowDate = new Date()
+  let startYear = new Date(date.getFullYear(), 0, 1)
+  let different = nowDate-startYear;
+  let currentDays = Math.round(different/1000/3600/24)
+  let percentOfYear = Math.floor((currentDays * 100)/yearDays)
+  return percentOfYear;
+}
+
 function BalanceWidget() {
   let date = new Date();
   let yearDays = getYearDays(date.getFullYear());
+  let monthDays = getMonthDays(date.getMonth()+1);
+  let dayOfMonth = date.getDate()
+  let weekDay = date.getDay() || 7 //! 0 - Sunday !!!
+  let time = date.getHours();
 
-  let month = date.getMonth()+1;
-  let monthDays;
-  switch(month) {
-    case 2: {
-      monthDays = 28; 
-      break;
-    }
-    case 1,3,5,7,8,10,12: {
-      monthDays = 31;
-      break;
-    }
-    default: {
-      monthDays = 30; 
-      break
-    }
-  }
+  let percentsOfYear = getPercentOfYear(date, yearDays);
+  let percentsOfMonth = Math.floor(dayOfMonth*100/monthDays);
+  let percentsOfWeek = Math.floor(weekDay*100/7)
+// 24, gethours 
 
-  console.log(date.getDate())
-  console.log(monthDays)
-  
-  console.log(yearDays)
+
+  // console.log(percentsOfWeek)
+  // console.log(percentsOfYear)
+  // console.log(weekDay)
+  // console.log(dayOfMonth)
+  // console.log(monthDays)
+  // console.log(yearDays)
 
 }
 
