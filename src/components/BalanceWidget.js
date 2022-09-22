@@ -54,26 +54,30 @@ function BalanceWidget() {
 
   let widgetData = [
     {
-      bgcolor: "darkgreen",
+      bgcolor: "#00695c",
       completed: percentsOfYear,
+      title: `Year`
     },
     {
-      bgcolor: "black",
+      bgcolor: "#00695c",
       completed: percentsOfMonth,
+      title: "Month"
     },
     {
-      bgcolor: "black",
+      bgcolor: "#00695c",
       completed: percentsOfWeek,
+      title: "Week"
     },
     {
-      bgcolor: "black",
+      bgcolor: "#00695c",
       completed: percentsOfDay,
+      title: "Day"
     },
   ];
 
   return (
     <div>
-      {widgetData.map((item, i) => <ProgressBar key={i} bgcolor={item.bgcolor} completed={item.completed}/>)}
+      {widgetData.map((item, i) => <ProgressBar key={i} bgcolor={item.bgcolor} completed={item.completed} title={item.title}/>)}
     </div>
   )
 
