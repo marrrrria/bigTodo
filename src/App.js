@@ -3,10 +3,22 @@ import React from "react";
 import AddTask from "./components/AddTask";
 import Context from "./context";
 import Filter from "./components/Filter";
-import BalanceWidget from "./components/BalanceWidget"
+import BalanceWidget from "./components/BalanceWidget";
+import TaskColors from "./components/TaskColors"
 
 
 function App() {
+
+  const tags = {
+    notImportantNotEmergency: 0,
+    importantEmergency: 1,
+    importantNotEmergency: 2,
+    notImportantEmergency: 3,
+    // health: 3,
+    // money: 4,
+    // selfDevelopment: 5,
+    // family: 6,
+  }
   
   const tasks = [
     {
@@ -37,30 +49,35 @@ function App() {
       //   },
       // ]
       hidden: false,
+      tag: tags.importantEmergency,
     },
     {
       id: 2,
       title: 'cat',
       completed: false,
       hidden: false,
+      tag: tags.importantNotEmergency,
     },
     {
       id: 3,
       title: 'dog',
       completed: false,
       hidden: false,
+      tag: tags.notImportantEmergency,
     },
     {
       id: 4,
       title: 'mice',
       completed: false,
       hidden: false,
+      tag: tags.importantEmergency,
     },
     {
       id: 5,
       title: 'style',
       completed: false,
       hidden: false,
+      tag: tags.importantEmergency,
     }
   ]
 
@@ -84,12 +101,14 @@ function App() {
     }))
   }
 
-  function addItem(title) {
+  function addItem(title, tag) {
+    console.log(title, tag)
     setList(list => [...list, {
       id: list.length+1,
       title: title,
       completed: false,
       hidden: false,
+      tag: +tag,
     }])
     console.log(list)
   }
@@ -182,8 +201,12 @@ function App() {
   return (
     <Context.Provider value={{dragStart, dragOver, dragLeave, dragEnd, dragDrop}}>
       <div className="wrapper">
-        <BalanceWidget/>
+        <div className="flex">
+          <BalanceWidget/>
 
+          <TaskColors/>
+        </div>
+        
         <Filter filterAll={filterAll} filterActive={filterActive} filterDone={filterDone}/>
         
         {list.length ? <TaskList tasks={list} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}

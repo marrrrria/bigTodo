@@ -12,8 +12,20 @@ function Task({task, toggleDone, deleteTask}) {
     done.push('done')
   }
 
-  if(task.hidden) {
+  if (task.hidden) {
     hidden.push('hidden')
+  }
+
+  if (task.tag === 1) {
+    hidden.push('imp-emer')
+  }
+
+  if (task.tag === 2) {
+    hidden.push('important')
+  }
+
+  if (task.tag === 3) {
+    hidden.push('not-important')
   }
 
   return (
@@ -28,6 +40,7 @@ function Task({task, toggleDone, deleteTask}) {
       <span className={done.join(' ')}>
         <input type="checkbox" onChange={() => toggleDone(task.id)} checked={task.completed}/>
         {task.title}
+        
       </span>
       <button className="delete" onClick={() => deleteTask(task.id)}>&times;</button>
       

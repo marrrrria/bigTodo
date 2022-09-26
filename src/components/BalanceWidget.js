@@ -76,18 +76,10 @@ function BalanceWidget() {
   ];
 
   return (
-    <div>
+    <div className="balance-widget">
       {widgetData.map((item, i) => <ProgressBar key={i} bgcolor={item.bgcolor} completed={item.completed} title={item.title}/>)}
     </div>
   )
-
-
-  // console.log(percentsOfDay)
-  // console.log(percentsOfYear)
-  // console.log(weekDay)
-  // console.log(dayOfMonth)
-  // console.log(monthDays)
-  // console.log(yearDays)
 
 }
 
