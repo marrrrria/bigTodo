@@ -8,8 +8,6 @@ function Filter({filterAll, filterActive, filterDone}) {
   let colorC = active === 'active' ? 'rgba(141, 217, 236, 0.925)' : 'rgba(199, 242, 253, 0.377)';
   let colorR = active === 'done' ? 'rgba(141, 217, 236, 0.925)' : 'rgba(199, 242, 253, 0.377)';
 
-  console.log(active === 'active')
-
   const styles = {
     buttonLeft: {
       backgroundColor: colorL,

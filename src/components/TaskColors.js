@@ -2,7 +2,7 @@ import React from "react";
 
 function TaskColors() {
   return (
-    <div className="task-colors" style={{marginBottom: '20px', fontSize: '20px'}}>
+    <div className="task-colors" style={{fontSize: '20px'}}>
       <div className="item-color">
         <div className="task-color i-e"></div> {"Important and Emergency"}
       </div>

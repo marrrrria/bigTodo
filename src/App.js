@@ -6,6 +6,7 @@ import Filter from "./components/Filter";
 import BalanceWidget from "./components/BalanceWidget";
 import TaskColors from "./components/TaskColors"
 import ModalAddTask from "./components/ModalAddTask";
+// import ShowDate from "./components/Date";
 
 
 function App() {
@@ -171,12 +172,12 @@ function App() {
   }
 
   function filterAll(e) {
-    console.log(e)
+    // console.log(e)
     // e.target.style.background = "blue"
     setList(list => list.map(item => {
       return {...item, hidden: false}
     }))
-    console.log(list)
+    // console.log(list)
   }
 
   function filterActive() {
@@ -201,6 +202,7 @@ function App() {
 
   return (
     <Context.Provider value={{dragStart, dragOver, dragLeave, dragEnd, dragDrop}}>
+      {/* <ShowDate/> */}
       <div className="wrapper">
         <div className="flex">
           <BalanceWidget/>
@@ -208,13 +210,13 @@ function App() {
           <TaskColors/>
           
         </div>
-        
+        <ModalAddTask addTask={addItem}/>
         <Filter filterAll={filterAll} filterActive={filterActive} filterDone={filterDone}/>
         <div style={{minHeight: '300px'}}>
           {list.length ? <TaskList tasks={list} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
         </div>
-        <ModalAddTask addTask={addItem}/>
-        <AddTask addTask={addItem}/>
+        
+        {/* <AddTask addTask={addItem}/> */}
       </div>
     </Context.Provider>
   );

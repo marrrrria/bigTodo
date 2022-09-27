@@ -8,7 +8,7 @@ function ProgressBar({bgcolor, completed, title}) {
       width: '100%',
       backgroundColor: "#e0e0de",
       borderRadius: '50px',
-      margin: '10px 0 50px 0',
+      margin: '10px 0 20px 0',
   },
     fillerStyles: {
       height: '100%',
