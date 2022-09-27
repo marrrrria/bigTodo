@@ -7,7 +7,7 @@ function TaskColors() {
         <div className="task-color i-e"></div> {"Important and Emergency"}
       </div>
       <div className="item-color">
-        <div className="task-color i-not-e"></div> {"Important and Not Emergency"}
+        <div className="task-color i-not-e"></div> {"Important but Not Emergency"}
       </div>
       <div className="item-color">
         <div className="task-color not-i-e"></div> {"Not Important and Emergency"}
