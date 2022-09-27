@@ -5,6 +5,7 @@ import Context from "./context";
 import Filter from "./components/Filter";
 import BalanceWidget from "./components/BalanceWidget";
 import TaskColors from "./components/TaskColors"
+import ModalAddTask from "./components/ModalAddTask";
 
 
 function App() {
@@ -185,7 +186,7 @@ function App() {
       } else {item.hidden = false}
       return item
     }))
-    console.log(list.filter(item => item.completed !== true))
+    // console.log(list.filter(item => item.completed !== true))
   }
 
   function filterDone() {
@@ -205,11 +206,14 @@ function App() {
           <BalanceWidget/>
 
           <TaskColors/>
+          
         </div>
         
         <Filter filterAll={filterAll} filterActive={filterActive} filterDone={filterDone}/>
-        
-        {list.length ? <TaskList tasks={list} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
+        <div style={{minHeight: '300px'}}>
+          {list.length ? <TaskList tasks={list} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
+        </div>
+        <ModalAddTask addTask={addItem}/>
         <AddTask addTask={addItem}/>
       </div>
     </Context.Provider>

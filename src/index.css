@@ -85,6 +85,11 @@ code {
   padding: 10px;
 }
 
+.add-task label {
+  font-size: 20px;
+  padding-left: 10px;
+}
+
 .add-task button {
   border-radius: 7px;
   font-size: 20px;
@@ -103,7 +108,7 @@ code {
 
 .filter button {
   padding: 20px;
-  background-color: rgba(199, 242, 253, 0.377);
+  /* background-color: rgba(141, 217, 236, 0.925); */
   /* margin-left: 10px; */
   margin-bottom: 40px;
   font-size: 20px;
