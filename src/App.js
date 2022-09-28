@@ -102,6 +102,7 @@ function App() {
       }
       return item      
     }))
+    getCounts()
   }
 
   function addItem(title, tag) {
@@ -207,24 +208,29 @@ function App() {
 
 
   const [counts, setCounts] = React.useState({
-    done: 0,
-    toDo: 0,
+    toDo: list.filter(el => !el.completed).length, 
+    done: list.filter(el => el.completed).length,  
   })
 
   function getCounts() {
+
     setCounts(counts => {
-      return {done: 0, toDo: 0,}
+      return { 
+        toDo: list.filter(el => !el.completed).length, 
+        done: list.filter(el => el.completed).length,  
+      }
     })
-    list.forEach(item => {
-      if(item.completed) {
-        setCounts(counts => {
-          return {...counts, done: counts.done + 1}
-        })
-      } else {setCounts(counts => {
-        return {...counts, toDo: counts.toDo + 1}
-      })}
-    })
-    console.log(counts)
+
+    // list.forEach(item => {
+    //   if(item.completed) {
+    //     setCounts(counts => {
+    //       return {...counts, done: counts.done + 1}
+    //     })
+    //   } else {setCounts(counts => {
+    //     return {...counts, toDo: counts.toDo + 1}
+    //   })}
+    // })
+    console.log(list)
   }
 
 
@@ -245,6 +251,7 @@ function App() {
         <ModalAddTask addTask={addItem}/>
         <Filter filterAll={filterAll} filterActive={filterActive} filterDone={filterDone}/>
         <Counts counts={counts}/>
+        {/* <Counts list={list}/> */}
         <div style={{minHeight: '300px'}}>
           {list.length ? <TaskList tasks={list} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
         </div>

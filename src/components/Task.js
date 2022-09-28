@@ -8,6 +8,8 @@ function Task({task, toggleDone, deleteTask}) {
   const done = [];
   const hidden = [];
 
+  // getCounts()
+
   if (task.completed) {
     done.push('done')
   }
@@ -35,14 +37,14 @@ function Task({task, toggleDone, deleteTask}) {
         onDragLeave={(e) => dragLeave(e)}
         onDragOver={(e) => dragOver(e)}
         onDragEnd={(e) => dragEnd(e)}
-        onDrop={(e) => dragDrop(e, task)}
+        onDrop={(e) => dragDrop(e, task)} 
         /*onClick={() => ShowSubTasks(task.subTasks)}*/>
       <span className={done.join(' ')}>
         <input type="checkbox" onChange={() => {toggleDone(task.id); getCounts()}} checked={task.completed}/>
         {task.title}
         
       </span>
-      <button className="delete" onClick={() => deleteTask(task.id)}>&times;</button>
+      <button className="delete" onClick={() => {deleteTask(task.id);}}>&times;</button>
       
     </li>
   )
