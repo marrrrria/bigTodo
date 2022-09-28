@@ -7,6 +7,7 @@ import BalanceWidget from "./components/BalanceWidget";
 import TaskColors from "./components/TaskColors"
 import ModalAddTask from "./components/ModalAddTask";
 import Counts from './components/Counts'
+import SearchPanel from "./components/SearchPanel";
 // import ShowDate from "./components/Date";
 
 
@@ -233,6 +234,19 @@ function App() {
     console.log(list)
   }
 
+  function search(value) {
+    console.log(value)
+    const newList = [...list]
+    newList.sort((item, it) => {
+      if(item.title.includes(value)) {
+        return -1
+      }
+      else {return 0}
+    })
+    console.log(newList)
+    setList(list => [...newList])
+    
+  }
 
 
 
@@ -250,8 +264,9 @@ function App() {
         </div>
         <ModalAddTask addTask={addItem}/>
         <Filter filterAll={filterAll} filterActive={filterActive} filterDone={filterDone}/>
-        <Counts counts={counts}/>
+        {/* <Counts counts={counts}/> */}
         {/* <Counts list={list}/> */}
+        <SearchPanel search={search}/>
         <div style={{minHeight: '300px'}}>
           {list.length ? <TaskList tasks={list} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
         </div>
