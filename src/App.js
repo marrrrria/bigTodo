@@ -6,6 +6,7 @@ import Filter from "./components/Filter";
 import BalanceWidget from "./components/BalanceWidget";
 import TaskColors from "./components/TaskColors"
 import ModalAddTask from "./components/ModalAddTask";
+import Counts from './components/Counts'
 // import ShowDate from "./components/Date";
 
 
@@ -200,8 +201,39 @@ function App() {
     console.log(list.filter(item => item.completed !== false))
   }
 
+
+
+
+
+
+  const [counts, setCounts] = React.useState({
+    done: 0,
+    toDo: 0,
+  })
+
+  function getCounts() {
+    setCounts(counts => {
+      return {done: 0, toDo: 0,}
+    })
+    list.forEach(item => {
+      if(item.completed) {
+        setCounts(counts => {
+          return {...counts, done: counts.done + 1}
+        })
+      } else {setCounts(counts => {
+        return {...counts, toDo: counts.toDo + 1}
+      })}
+    })
+    console.log(counts)
+  }
+
+
+
+
+
+
   return (
-    <Context.Provider value={{dragStart, dragOver, dragLeave, dragEnd, dragDrop}}>
+    <Context.Provider value={{dragStart, dragOver, dragLeave, dragEnd, dragDrop, getCounts}}>
       {/* <ShowDate/> */}
       <div className="wrapper">
         <div className="flex">
@@ -212,6 +244,7 @@ function App() {
         </div>
         <ModalAddTask addTask={addItem}/>
         <Filter filterAll={filterAll} filterActive={filterActive} filterDone={filterDone}/>
+        <Counts counts={counts}/>
         <div style={{minHeight: '300px'}}>
           {list.length ? <TaskList tasks={list} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
         </div>

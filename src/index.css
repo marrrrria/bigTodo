@@ -114,7 +114,6 @@ code {
   padding: 20px;
   /* background-color: rgba(141, 217, 236, 0.925); */
   /* margin-left: 10px; */
-  margin-bottom: 40px;
   font-size: 20px;
   border: 1px solid black;
 }
@@ -189,4 +188,17 @@ code {
 
 .task-colors {
   /* padding-left: 100px */
+}
+
+.counts {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+  margin-right: 10px;
+  font-size: 9px;
+  
+}
+
+.counts p {
+  margin-left: 10px;
 }

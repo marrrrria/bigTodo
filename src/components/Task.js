@@ -3,7 +3,7 @@ import Context from "../context";
 // import ShowSubTasks from '../components/ShowSubTasks'
 
 function Task({task, toggleDone, deleteTask}) {
-  const {dragStart, dragOver, dragLeave, dragEnd, dragDrop} = useContext(Context);
+  const {dragStart, dragOver, dragLeave, dragEnd, dragDrop, getCounts} = useContext(Context);
 
   const done = [];
   const hidden = [];
@@ -38,16 +38,15 @@ function Task({task, toggleDone, deleteTask}) {
         onDrop={(e) => dragDrop(e, task)}
         /*onClick={() => ShowSubTasks(task.subTasks)}*/>
       <span className={done.join(' ')}>
-        <input type="checkbox" onChange={() => toggleDone(task.id)} checked={task.completed}/>
+        <input type="checkbox" onChange={() => {toggleDone(task.id); getCounts()}} checked={task.completed}/>
         {task.title}
         
       </span>
       <button className="delete" onClick={() => deleteTask(task.id)}>&times;</button>
       
     </li>
-
-    
   )
+
 }
 
 export default Task
@@ -71,3 +70,48 @@ export default Task
 
 
 //       }
+
+
+
+
+
+// const [state, setState] = React.useState({
+//     done: false,
+//     important: false,
+//   })
+
+//   let classes = 'task';
+
+//   const inputChange = () => {
+//     setState((state) => {
+  //     return {
+//       done: !state.done,
+//     }})
+//   }
+
+//   const importantHandler = () => {
+//     setState((state) => {
+  //      return {
+//       important: !state.important,
+//     }
+//     })
+//   }
+
+//   if(state.important) {
+//     classes += ' i-not-e'
+//   }
+
+//   if(state.done) {
+//     classes += ' done'
+//   }
+
+
+//   return (
+//     <li className={classes} onClick={importantHandler}>
+//       <span >
+//         <input type="checkbox" onChange={inputChange}/>
+//         {task.title}
+//       </span>
+      
+//     </li>
+//   )
