@@ -236,16 +236,37 @@ function App() {
 
   function search(value) {
     console.log(value)
-    const newList = [...list]
-    newList.sort((item, it) => {
-      if(item.title.includes(value)) {
-        return -1
-      }
-      else {return 0}
-    })
-    console.log(newList)
-    setList(list => [...newList])
-    
+    // const newList = [...list]
+    // newList.sort((item, it) => {
+    //   if(item.title.includes(value)) {
+    //     return -1
+    //   }
+    //   else {return 0}
+    // })
+
+    // let a = newList.filter(item => item.title.includes(value))
+
+    // newList.filter(item => !item.title.includes(value)).forEach(item => {
+    //   console.log(item)
+      // item.hidden = true;
+    // })
+
+    // let id = 0;
+    // newList.map(item => {
+    //   id += 1;
+    //   return {...item, id: id }
+    // })
+    // console.log(newList)
+    // console.log(a)
+    // setList(a)
+    // setList(list => [...newList])
+
+    setList(list.map(item => {
+        if(!item.title.includes(value)) {
+          return {...item, hidden:true}
+        }
+        else { return {...item, hidden:false} }
+      }))    
   }
 
 
