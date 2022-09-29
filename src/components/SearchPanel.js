@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function SearchPanel({search}) {
+// export default function SearchPanel({list, search}) {
+export default function SearchPanel({getValue}) {
+
   const style = {
     marginBottom: '20px',
     borderRadius: '10px',
@@ -8,6 +10,7 @@ export default function SearchPanel({search}) {
     paddingLeft: '20px',
   }
 
+  
   // const [value, setValue] = React.useState('')
 
   // function changeValue(e) {
@@ -16,6 +19,8 @@ export default function SearchPanel({search}) {
   // }
 
   return (
-    <input style={style} type="text" placeholder="Search..." onChange={(e) => {search(e.target.value)}}/>
+    // <input style={style} type="text" placeholder="Search..." onChange={(e) => {search(list, e.target.value)}}/>
+    <input style={style} type="text" placeholder="Search..." onChange={(e) => {getValue(e.target.value)}}/>
+
   )
 }

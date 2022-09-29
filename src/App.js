@@ -234,43 +234,32 @@ function App() {
     console.log(list)
   }
 
-  function search(value) {
-    console.log(value)
-    // const newList = [...list]
-    // newList.sort((item, it) => {
-    //   if(item.title.includes(value)) {
-    //     return -1
-    //   }
-    //   else {return 0}
-    // })
+  // function search(value) {
+  //   console.log(value)
 
-    // let a = newList.filter(item => item.title.includes(value))
+  //   setList(list.map(item => {
+  //       if(!item.title.includes(value)) {
+  //         return {...item, hidden:true}
+  //       }
+  //       else { return {...item, hidden:false} }
+  //     }))    
+  // }
 
-    // newList.filter(item => !item.title.includes(value)).forEach(item => {
-    //   console.log(item)
-      // item.hidden = true;
-    // })
+  const [searchValue, setSearchValue] = React.useState('')
 
-    // let id = 0;
-    // newList.map(item => {
-    //   id += 1;
-    //   return {...item, id: id }
-    // })
-    // console.log(newList)
-    // console.log(a)
-    // setList(a)
-    // setList(list => [...newList])
-
-    setList(list.map(item => {
-        if(!item.title.includes(value)) {
-          return {...item, hidden:true}
-        }
-        else { return {...item, hidden:false} }
-      }))    
+  function getSearchValue(value) {
+    setSearchValue(value.toLowerCase())
   }
 
+  function search(list, value) {
+    if (!value.length) {
+      return list
+    }
+    return list.filter(item => item.title.toLowerCase().includes(value))
 
+  }
 
+  const visibleList = search(list, searchValue)
 
 
   return (
@@ -285,11 +274,14 @@ function App() {
         </div>
         <ModalAddTask addTask={addItem}/>
         <Filter filterAll={filterAll} filterActive={filterActive} filterDone={filterDone}/>
-        {/* <Counts counts={counts}/> */}
+        <Counts counts={counts}/>
         {/* <Counts list={list}/> */}
-        <SearchPanel search={search}/>
+        {/* <SearchPanel list={list} search={search}/> */}
+        <SearchPanel getValue={getSearchValue}/>
         <div style={{minHeight: '300px'}}>
-          {list.length ? <TaskList tasks={list} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
+          {/* {list.length ? <TaskList tasks={list} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>} */}
+          {list.length ? <TaskList tasks={visibleList} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
+
         </div>
         
         {/* <AddTask addTask={addItem}/> */}
