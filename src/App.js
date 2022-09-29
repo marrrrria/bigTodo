@@ -1,6 +1,5 @@
 import TaskList from "./components/TaskList";
 import React from "react";
-import AddTask from "./components/AddTask";
 import Context from "./context";
 import Filter from "./components/Filter";
 import BalanceWidget from "./components/BalanceWidget";
@@ -9,7 +8,6 @@ import ModalAddTask from "./components/ModalAddTask";
 import Counts from './components/Counts'
 import SearchPanel from "./components/SearchPanel";
 // import ShowDate from "./components/Date";
-
 
 function App() {
 
@@ -85,37 +83,67 @@ function App() {
     }
   ]
 
-  const [list, setList] = React.useState(tasks)
+  const [state, setState] = React.useState({
+    list: tasks,
+    currentItem: null,
+    searchValue: '',
+    filterValue: '',
+  })
+  console.log(state,"1")
+  // const [list, setList] = React.useState(tasks)
 
   function toggleDone(id) {
-    setList(list.map(item => {
+    console.log(state,"2")
+    setState((state) => {state.list.map(item => {
       if (item.id === id) {
         item.completed = !item.completed;
       }
       return item
-    }))
+    })})
+    console.log(state,"3")
+    // setList(list.map(item => {
+    //   if (item.id === id) {
+    //     item.completed = !item.completed;
+    //   }
+    //   return item
+    // }))
   }
 
   function deleteItem(id) {
-    setList(list => list.filter(item => item.id !== id).map(item => {
+    setState(({list}) => list.filter(item => item.id !== id).map(item => {
       if(item.id > id){
         return {...item, id: item.id-1}
       }
       return item      
     }))
     getCounts()
+    // setList(list => list.filter(item => item.id !== id).map(item => {
+    //   if(item.id > id){
+    //     return {...item, id: item.id-1}
+    //   }
+    //   return item      
+    // }))
+    // getCounts()
   }
 
   function addItem(title, tag) {
-    console.log(title, tag)
-    setList(list => [...list, {
+    // console.log(title, tag)
+    setState(({list}) => [...list, {
       id: list.length+1,
       title: title,
       completed: false,
       hidden: false,
       tag: +tag,
     }])
-    console.log(list)
+
+    // setList(list => [...list, {
+    //   id: list.length+1,
+    //   title: title,
+    //   completed: false,
+    //   hidden: false,
+    //   tag: +tag,
+    // }])
+    // console.log(list)
   }
 
   function changeColor(e, color) {
@@ -152,8 +180,9 @@ function App() {
   function dragDrop(e, dropItem) {   
 
     changeColor(e, "white")
+    console.log(state,"11")
 
-    setList(list.map(item => {
+    setState(({list}) => list.map(item => {
       if(item.id === currentItem.id) {
         return {...item, id: dropItem.id}
       }
@@ -165,6 +194,19 @@ function App() {
       }
       return item;
     }))
+
+    // setList(list.map(item => {
+    //   if(item.id === currentItem.id) {
+    //     return {...item, id: dropItem.id}
+    //   }
+    //   if (item.id > currentItem.id && item.id <= dropItem.id) {
+    //     return {...item, id: item.id-1}
+    //   }
+    //   if(item.id < currentItem.id && item.id >= dropItem.id) {
+    //     return {...item, id: item.id+1}
+    //   }
+    //   return item;
+    // }))
   
   }
 
@@ -174,76 +216,34 @@ function App() {
     } else {return -1}
   }
 
-  function filterAll(e) {
-    // console.log(e)
-    // e.target.style.background = "blue"
-    setList(list => list.map(item => {
-      return {...item, hidden: false}
-    }))
-    // console.log(list)
-  }
 
-  function filterActive() {
-    setList(list => list.map(item => {
-      if(item.completed) {
-        item.hidden = true
-      } else {item.hidden = false}
-      return item
-    }))
-    // console.log(list.filter(item => item.completed !== true))
+  function filter(list, flag) {
+    switch(flag) {
+      case 'active': return list.filter(item => !item.completed);
+      case 'done': return list.filter(item => item.completed);
+      default: return list;
+    }
   }
-
-  function filterDone() {
-    setList(list => list.map(item => {
-      if(!item.completed) {
-        item.hidden = true
-      } else {item.hidden = false}
-      return item
-    }))
-    console.log(list.filter(item => item.completed !== false))
-  }
-
 
 
 
 
 
   const [counts, setCounts] = React.useState({
-    toDo: list.filter(el => !el.completed).length, 
-    done: list.filter(el => el.completed).length,  
+    toDo: state.list.filter(el => !el.completed).length, 
+    done: state.list.filter(el => el.completed).length,  
   })
 
   function getCounts() {
 
     setCounts(counts => {
       return { 
-        toDo: list.filter(el => !el.completed).length, 
-        done: list.filter(el => el.completed).length,  
+        toDo: state.list.filter(el => !el.completed).length, 
+        done: state.list.filter(el => el.completed).length,  
       }
     })
-
-    // list.forEach(item => {
-    //   if(item.completed) {
-    //     setCounts(counts => {
-    //       return {...counts, done: counts.done + 1}
-    //     })
-    //   } else {setCounts(counts => {
-    //     return {...counts, toDo: counts.toDo + 1}
-    //   })}
-    // })
-    console.log(list)
   }
 
-  // function search(value) {
-  //   console.log(value)
-
-  //   setList(list.map(item => {
-  //       if(!item.title.includes(value)) {
-  //         return {...item, hidden:true}
-  //       }
-  //       else { return {...item, hidden:false} }
-  //     }))    
-  // }
 
   const [searchValue, setSearchValue] = React.useState('')
 
@@ -259,7 +259,13 @@ function App() {
 
   }
 
-  const visibleList = search(list, searchValue)
+  const [filterValue, setFilterValue] = React.useState('')
+
+  function changeFilterValue(value) {
+    setFilterValue(value);
+  }
+
+  const visibleList = filter(search(state.list, searchValue), filterValue)
 
 
   return (
@@ -273,18 +279,12 @@ function App() {
           
         </div>
         <ModalAddTask addTask={addItem}/>
-        <Filter filterAll={filterAll} filterActive={filterActive} filterDone={filterDone}/>
+        <Filter changeFilter={changeFilterValue}/>
         <Counts counts={counts}/>
-        {/* <Counts list={list}/> */}
-        {/* <SearchPanel list={list} search={search}/> */}
         <SearchPanel getValue={getSearchValue}/>
         <div style={{minHeight: '300px'}}>
-          {/* {list.length ? <TaskList tasks={list} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>} */}
-          {list.length ? <TaskList tasks={visibleList} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
-
+          {state.list.length ? <TaskList tasks={visibleList} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
         </div>
-        
-        {/* <AddTask addTask={addItem}/> */}
       </div>
     </Context.Provider>
   );

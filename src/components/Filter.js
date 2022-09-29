@@ -1,6 +1,6 @@
 import React from "react";
 
-function Filter({filterAll, filterActive, filterDone}) {
+function Filter({changeFilter}) {
 
   const [active, setActive] = React.useState('all')
 
@@ -25,9 +25,9 @@ function Filter({filterAll, filterActive, filterDone}) {
   }
   return (
     <div className="filter">
-      <button style={styles.buttonLeft} onClick={(e) => {filterAll(e); setActive('all')}}>ALL</button>
-      <button style={styles.buttonCenter} onClick={() => {filterActive(); setActive('active')}} >Active</button>
-      <button style={styles.buttonRight} onClick={() => {filterDone(); setActive('done')}}>Done</button>
+      <button style={styles.buttonLeft} onClick={(e) => {changeFilter('all'); setActive('all')}}>ALL</button>
+      <button style={styles.buttonCenter} onClick={() => {changeFilter('active'); setActive('active')}} >Active</button>
+      <button style={styles.buttonRight} onClick={() => {changeFilter('done'); setActive('done')}}>Done</button>
     </div>
   )
 }
