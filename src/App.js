@@ -89,18 +89,18 @@ function App() {
     searchValue: '',
     filterValue: '',
   })
-  console.log(state,"1")
+  // console.log(state,"1")
   // const [list, setList] = React.useState(tasks)
 
   function toggleDone(id) {
-    console.log(state,"2")
+    // console.log(state,"2")
     setState((state) => {state.list.map(item => {
       if (item.id === id) {
         item.completed = !item.completed;
       }
       return item
     })})
-    console.log(state,"3")
+    // console.log(state,"3")
     // setList(list.map(item => {
     //   if (item.id === id) {
     //     item.completed = !item.completed;
@@ -126,15 +126,15 @@ function App() {
     // getCounts()
   }
 
-  function addItem(title, tag) {
-    // console.log(title, tag)
-    setState(({list}) => [...list, {
-      id: list.length+1,
-      title: title,
-      completed: false,
-      hidden: false,
-      tag: +tag,
-    }])
+  // function addItem(title, tag) {
+  //   // console.log(title, tag)
+  //   setState(({list}) => [...list, {
+  //     id: list.length+1,
+  //     title: title,
+  //     completed: false,
+  //     hidden: false,
+  //     tag: +tag,
+  //   }])
 
     // setList(list => [...list, {
     //   id: list.length+1,
@@ -144,7 +144,7 @@ function App() {
     //   tag: +tag,
     // }])
     // console.log(list)
-  }
+  // }
 
   function changeColor(e, color) {
     if(e.target.localName === "li") {
@@ -180,7 +180,7 @@ function App() {
   function dragDrop(e, dropItem) {   
 
     changeColor(e, "white")
-    console.log(state,"11")
+    // console.log(state,"11")
 
     setState(({list}) => list.map(item => {
       if(item.id === currentItem.id) {
@@ -247,9 +247,9 @@ function App() {
 
   const [searchValue, setSearchValue] = React.useState('')
 
-  function getSearchValue(value) {
-    setSearchValue(value.toLowerCase())
-  }
+  // function getSearchValue(value) {
+  //   setSearchValue(value.toLowerCase())
+  // }
 
   function search(list, value) {
     if (!value.length) {
@@ -261,10 +261,11 @@ function App() {
 
   const [filterValue, setFilterValue] = React.useState('')
 
-  function changeFilterValue(value) {
-    setFilterValue(value);
-  }
+  // function changeFilterValue(value) {
+  //   setFilterValue(value);
+  // }
 
+  console.log(state.list)
   const visibleList = filter(search(state.list, searchValue), filterValue)
 
 
@@ -273,15 +274,15 @@ function App() {
       {/* <ShowDate/> */}
       <div className="wrapper">
         <div className="flex">
-          <BalanceWidget/>
+          {/* <BalanceWidget/> */}
 
-          <TaskColors/>
+          {/* <TaskColors/> */}
           
         </div>
-        <ModalAddTask addTask={addItem}/>
-        <Filter changeFilter={changeFilterValue}/>
-        <Counts counts={counts}/>
-        <SearchPanel getValue={getSearchValue}/>
+        {/* <ModalAddTask addTask={addItem}/> */}
+        {/* <Filter changeFilter={changeFilterValue}/> */}
+        {/* <Counts counts={counts}/> */}
+        {/* <SearchPanel getValue={getSearchValue}/> */}
         <div style={{minHeight: '300px'}}>
           {state.list.length ? <TaskList tasks={visibleList} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
         </div>
