@@ -259,7 +259,7 @@ function App() {
 
   }
 
-  const [filterValue, setFilterValue] = React.useState('')
+  const [filterValue, setFilterValue] = React.useState('') 
 
   function changeFilterValue(value) {
     setFilterValue(value);
