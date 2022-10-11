@@ -89,24 +89,43 @@ function App() {
     searchValue: '',
     filterValue: '',
   })
-  console.log(state,"1")
+  // console.log(state,"1")
   // const [list, setList] = React.useState(tasks)
 
+  // function toggleDone(id) {
+  //   console.log(id)
+  //   setList(list.map(item => {
+  //     console.log(item)
+  //     if (item.id === id) {
+  //       item.completed = !item.completed;
+  //     }
+  //     return item
+  //   }))
+  // }
+
   function toggleDone(id) {
-    console.log(state,"2")
-    setState((state) => {state.list.map(item => {
+    console.log(state.list[0],"2")
+    const result = state.list.map(item => {
       if (item.id === id) {
         item.completed = !item.completed;
       }
       return item
-    })})
-    console.log(state,"3")
-    // setList(list.map(item => {
+    })
+    setState((state) => {
+      return {
+        ...state,
+        list: result,
+    }
+    })
+    
+
+    //   state.list.map(item => {
     //   if (item.id === id) {
     //     item.completed = !item.completed;
     //   }
     //   return item
     // }))
+    // console.log(state.list[0],"3")
   }
 
   function deleteItem(id) {
@@ -127,7 +146,7 @@ function App() {
   }
 
   function addItem(title, tag) {
-    // console.log(title, tag)
+  
     setState(({list}) => [...list, {
       id: list.length+1,
       title: title,
@@ -143,7 +162,7 @@ function App() {
     //   hidden: false,
     //   tag: +tag,
     // }])
-    // console.log(list)
+  
   }
 
   function changeColor(e, color) {
@@ -180,7 +199,6 @@ function App() {
   function dragDrop(e, dropItem) {   
 
     changeColor(e, "white")
-    console.log(state,"11")
 
     setState(({list}) => list.map(item => {
       if(item.id === currentItem.id) {
@@ -228,10 +246,12 @@ function App() {
 
 
 
-
+    console.log(state,"21")
   const [counts, setCounts] = React.useState({
     toDo: state.list.filter(el => !el.completed).length, 
     done: state.list.filter(el => el.completed).length,  
+    // toDo: list.filter(el => !el.completed).length, 
+    // done: list.filter(el => el.completed).length, 
   })
 
   function getCounts() {
@@ -240,6 +260,8 @@ function App() {
       return { 
         toDo: state.list.filter(el => !el.completed).length, 
         done: state.list.filter(el => el.completed).length,  
+      //   toDo: list.filter(el => !el.completed).length, 
+      //   done: list.filter(el => el.completed).length,  
       }
     })
   }
@@ -266,6 +288,8 @@ function App() {
   }
 
   const visibleList = filter(search(state.list, searchValue), filterValue)
+  // const visibleList = filter(search(list, searchValue), filterValue)
+
 
 
   return (
@@ -284,6 +308,8 @@ function App() {
         <SearchPanel getValue={getSearchValue}/>
         <div style={{minHeight: '300px'}}>
           {state.list.length ? <TaskList tasks={visibleList} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
+          {/* {list.length ? <TaskList tasks={visibleList} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>} */}
+
         </div>
       </div>
     </Context.Provider>
