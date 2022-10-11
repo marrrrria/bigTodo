@@ -263,9 +263,9 @@ function App() {
       {/* <ShowDate/> */}
       <div className="wrapper">
         <div className="flex">
-          <BalanceWidget/>
+          {/* <BalanceWidget/> */}
 
-          <TaskColors/>
+          {/* <TaskColors/> */}
           
         </div>
         <ModalAddTask addTask={addItem}/>
