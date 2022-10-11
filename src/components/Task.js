@@ -3,7 +3,7 @@ import Context from "../context";
 // import ShowSubTasks from '../components/ShowSubTasks'
 
 function Task({task, toggleDone, deleteTask}) {
-  const {dragStart, dragOver, dragLeave, dragEnd, dragDrop, getCounts} = useContext(Context);
+  const {dragStart, dragOver, dragLeave, dragEnd, dragDrop} = useContext(Context);
 
   const done = [];
   const hidden = [];
@@ -40,7 +40,7 @@ function Task({task, toggleDone, deleteTask}) {
         onDrop={(e) => dragDrop(e, task)} 
         /*onClick={() => ShowSubTasks(task.subTasks)}*/>
       <span className={done.join(' ')}>
-        <input type="checkbox" onChange={() => {toggleDone(task.id); getCounts()}} checked={task.completed}/>
+        <input type="checkbox" onChange={() => {toggleDone(task.id)}} checked={task.completed}/>
         {task.title}
         
       </span>

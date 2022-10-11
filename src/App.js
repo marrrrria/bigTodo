@@ -89,23 +89,6 @@ function App() {
     // })
   }
 
-  function deleteItem(id) {
-    let result = state.list.filter(item => item.id !== id).map(item => {
-      if(item.id > id){
-        return {...item, id: item.id-1}
-      }
-      return item      
-    });
-
-    setState(state => {
-      return {
-        ...state,
-        list: result,
-      }
-    })
-    getCounts()
-  }
-
   function addItem(title, tag) {
 
     setState(state => {
@@ -135,10 +118,13 @@ function App() {
   
   }
 
-  let [currentItem, setCurrentItem] = React.useState(null)
-
   function dragStart(e, item) {
-    setCurrentItem(item)
+    setState(state => {
+      return {
+        ...state,
+        currentItem: item,
+      }
+    })
   }
 
   function dragOver(e) {
@@ -159,13 +145,13 @@ function App() {
     changeColor(e, "white")
 
     let result = state.list.map(item => {
-      if(item.id === currentItem.id) {
+      if(item.id === state.currentItem.id) {
         return {...item, id: dropItem.id}
       }
-      if (item.id > currentItem.id && item.id <= dropItem.id) {
+      if (item.id > state.currentItem.id && item.id <= dropItem.id) {
         return {...item, id: item.id-1}
       }
-      if(item.id < currentItem.id && item.id >= dropItem.id) {
+      if(item.id < state.currentItem.id && item.id >= dropItem.id) {
         return {...item, id: item.id+1}
       }
       return item;
@@ -194,21 +180,6 @@ function App() {
     }
   }
 
-  const [counts, setCounts] = React.useState({
-    toDo: state.list.filter(el => !el.completed).length, 
-    done: state.list.filter(el => el.completed).length,  
-  })
-
-  function getCounts() {
-
-    setCounts(counts => {
-      return { 
-        toDo: state.list.filter(el => !el.completed).length, 
-        done: state.list.filter(el => el.completed).length,    
-      }
-    })
-  }
-
   function getSearchValue(value) {
     setState(state => {
       return {
@@ -235,12 +206,28 @@ function App() {
     })
   }
 
+  function deleteItem(id) {
+    let result = state.list.filter(item => item.id !== id).map(item => {
+      if(item.id > id){
+        return {...item, id: item.id-1}
+      }
+      return item      
+    });
+
+    setState(state => {
+      return {
+        ...state,
+        list: result,
+      }
+    })
+  }
+
   const visibleList = filter(search(state.list, state.searchValue), state.filterValue)
 
 
 
   return (
-    <Context.Provider value={{dragStart, dragOver, dragLeave, dragEnd, dragDrop, getCounts}}>
+    <Context.Provider value={{dragStart, dragOver, dragLeave, dragEnd, dragDrop}}>
       {/* <ShowDate/> */}
       <div className="wrapper">
         <div className="flex">
@@ -251,7 +238,7 @@ function App() {
         </div>
         <ModalAddTask addTask={addItem}/>
         <Filter changeFilter={changeFilterValue}/>
-        <Counts counts={counts}/>
+        <Counts list={state.list}/>
         <SearchPanel getValue={getSearchValue}/>
         <div style={{minHeight: '300px'}}>
           {state.list.length ? <TaskList tasks={visibleList} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
