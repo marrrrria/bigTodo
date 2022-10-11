@@ -7,8 +7,29 @@ import TaskColors from "./components/TaskColors"
 import ModalAddTask from "./components/ModalAddTask";
 import Counts from './components/Counts'
 import SearchPanel from "./components/SearchPanel";
+import TryComponent from "./components/TryComponent";
+import apiClient from "./components/API";
 
 function App() {
+
+  // const getData = async(url) => {
+  //   const res = await fetch(url);
+  //   if(!res.ok) {
+  //     throw new Error('Could not fetch')
+  //   }
+  //   const body = await res.json();
+  //   return body;
+  // }
+
+  // getData('http://127.0.0.1:5000/getTask')
+  // .then((body) => {
+  //   console.log(body)
+  // })
+  // .catch((error) => {
+  //   console.log(error)
+  // })
+
+  
 
   const tags = {
     notImportantNotEmergency: 0,
@@ -61,6 +82,17 @@ function App() {
     searchValue: '',
     filterValue: '',
   })
+
+
+  // apiClient.getTasks()
+  // .then(tasks => {
+  //   setState({
+  //   list: tasks,
+  //   currentItem: null,
+  //   searchValue: '',
+  //   filterValue: '',
+  // })
+  // })
 
   function toggleDone(id) {
     const result = state.list.map(item => {
@@ -244,6 +276,7 @@ function App() {
           {state.list.length ? <TaskList tasks={visibleList} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
 
         </div>
+        <TryComponent/>
       </div>
     </Context.Provider>
   );
