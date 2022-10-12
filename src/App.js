@@ -1,15 +1,10 @@
-import TaskList from "./components/TaskList";
 import React, { useEffect } from "react";
 import Context from "./context";
-import Filter from "./components/Filter";
-import BalanceWidget from "./components/BalanceWidget";
-import TaskColors from "./components/TaskColors"
-import ModalAddTask from "./components/ModalAddTask";
-import Counts from './components/Counts'
-import SearchPanel from "./components/SearchPanel";
 import Spinner from './components/Spinner/Spinner'
+import ViewApp from "./components/ViewApp";
 import TryComponent from "./components/TryComponent";
 import apiClient from "./components/API";
+
 
 // Work with regular expressions
   // const idRegExp = /\/([0-9]*)\/$/;
@@ -90,17 +85,17 @@ function App() {
     loading: false,
   })
 
-  // useEffect(() => {
-  //   apiClient.getTasks()
-  //     .then(tasks => {
-  //       setState(state => {
-  //         return {
-  //           ...state,
-  //           list: tasks,
-  //           loading: false,
-  //       }})
-  //     })
-  // })
+  useEffect(() => {
+    apiClient.getTasks()
+      .then(tasks => {
+        setState(state => {
+          return {
+            ...state,
+            list: tasks,
+            loading: false,
+        }})
+      })
+  }, [])
 
 
   // apiClient.getTasks()
@@ -276,32 +271,17 @@ function App() {
   const visibleList = filter(search(state.list, state.searchValue), state.filterValue)
 
 
-  if(state.loading) {
-    return <Spinner/>
-  }
+  const spinner = state.loading ? <Spinner/> : null;
+  const content = !state.loading ? <ViewApp addItem={addItem} changeFilterValue={changeFilterValue} list={state.list} getSearchValue={getSearchValue} visibleList={visibleList} toggleDone={toggleDone} deleteItem={deleteItem} sortList={sortList}/> : null;
+  // if(state.loading) {
+  //   return <Spinner/>
+  // }
 
 
   return (
     <Context.Provider value={{dragStart, dragOver, dragLeave, dragEnd, dragDrop}}>
-      {/* <ShowDate/> */}
-      <div className="wrapper">
-        <div className="flex">
-          {/* <Spinner/> */}
-          <BalanceWidget/>
-
-          <TaskColors/>
-          
-        </div>
-        <ModalAddTask addTask={addItem}/>
-        <Filter changeFilter={changeFilterValue}/>
-        <Counts list={state.list}/>
-        <SearchPanel getValue={getSearchValue}/>
-        <div style={{minHeight: '300px'}}>
-          {state.list.length ? <TaskList tasks={visibleList} toggleDone={toggleDone} deleteTask={deleteItem} sortList={sortList}/> : <h1>NO PLANS!</h1>}
-
-        </div>
-        {/* <TryComponent/> */}
-      </div>
+      {spinner}
+      {content}
     </Context.Provider>
   );
 }

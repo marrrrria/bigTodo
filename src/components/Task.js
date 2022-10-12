@@ -8,8 +8,6 @@ function Task({task, toggleDone, deleteTask}) {
   const done = [];
   const hidden = [];
 
-  // getCounts()
-
   if (task.completed) {
     done.push('done')
   }
