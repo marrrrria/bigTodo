@@ -6,8 +6,9 @@ class API {
     if(!res.ok) {
       throw new Error('Could not fetch')
     }
-    const body = await res.json();
-    return body;
+
+    return await res.json();
+    
   }
 
   async getTasks() {
@@ -24,5 +25,5 @@ class API {
 
 const apiClient = new API();
 
-// export default apiClient;
-export default API;
+export default apiClient;
+// export default API;

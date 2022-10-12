@@ -5,11 +5,10 @@ export default class TryComponent extends Component {
   api = new API()
   
   state = {
-    data: null
+    data: [],
   }
 
-  constructor() {
-    super();
+  componentDidMount() {
     this.updateData()
   }
 
@@ -21,9 +20,10 @@ export default class TryComponent extends Component {
 
   render() {
     const {data} = this.state
+    // console.log(data)
     return(
       <div>
-        <div>{data[0].title}</div>
+        <div>{data.map(item => item.title)}</div>
       </div>
     )
   }
